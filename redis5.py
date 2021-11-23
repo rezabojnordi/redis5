@@ -23,8 +23,27 @@ class Redis:
         return True
     def delete(self, key):
         """Deletes a key"""
-        del self.data[self.db][key]
+        self.db.delete(key)
         return True  
+    
+    def incr(self, key):
+        if (self.r.get(key) == None):
+            self.r.set(key,1)
+            print("create" + key)
+        else:
+            self.r.incr(key)
+        return  self.r.get(key)
+    
+    def decr(self, key):
+        if (self.r.get(key) == None or int(self.r.get(key)) <= 0):
+            print("check")
+            return self.r.get(key)
+        else:
+            print("incrept")
+            self.r.decr(key)
+        return  self.r.get(key)
+
+
 
 
 
