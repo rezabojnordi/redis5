@@ -8,6 +8,8 @@ r = redis5.Redis(db=1,host='85.208.253.188')
 #r.db.delete("hello",True)
 #r.incr("countr")
 r.decr("countr")
+#r.delete("hello")
+r.flush()
 # value = r.get('hello')
 # print(value) # 'world'
 # r.delete('hello') # True

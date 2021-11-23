@@ -23,7 +23,7 @@ class Redis:
         return True
     def delete(self, key):
         """Deletes a key"""
-        self.db.delete(key)
+        self.r.delete(key)
         return True  
     
     def incr(self, key):
@@ -42,6 +42,10 @@ class Redis:
             print("incrept")
             self.r.decr(key)
         return  self.r.get(key)
+    
+    def flush(self):
+        return self.r.flushdb()
+
 
 
 
