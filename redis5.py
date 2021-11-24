@@ -45,6 +45,43 @@ class Redis:
     
     def flush(self):
         return self.r.flushdb()
+    
+    def list_keys(self):
+        return self.r.smembers('count')
+    
+    def add_key(self, keyname,values):
+        return self.r.sadd(keyname, values)
+    
+    def rpush(self):
+        return self.r.rpush("R","B")
+    
+    def rpush(self,key,value):
+        return self.r.rpush(key,value)
+    
+
+    def lpush(self,key,value):
+        return self.r.lpush(key,value)
+    
+    def rpush(self,key,value):
+        return self.r.rpush(key,value)
+    
+    def lpop(self,key):
+        return self.r.lpop(key)
+    
+    def rpop(self,key):
+        return self.r.rpop(key)
+    
+
+    def llen(self,key):
+        return self.r.llen(key)
+    
+    def lindex(self,key,id):
+        return self.r.lindex(key, id)
+    
+    def lrange(self,key,index0=0,index1=-1):
+        return self.r.lrange(key,index0,index1)
+    
+
 
 
 
