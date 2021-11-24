@@ -78,8 +78,15 @@ class Redis:
     def lindex(self,key,id):
         return self.r.lindex(key, id)
     
+
     def lrange(self,key,index0=0,index1=-1):
         return self.r.lrange(key,index0,index1)
+    
+    def expire(self,key,ttl):
+        return self.r.expire(key,ttl)
+    
+    def ttl(self,key):
+        return self.r.ttl(key)
     
 
 
