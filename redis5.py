@@ -106,8 +106,43 @@ class Redis:
     def type(self,key):
         return self.r.type(key)
     
-    def sort(self,list):
-        return self.r.sort(list)
+    def sort(self,list,start=0,num=-1):
+        try:
+            return self.r.sort(list,start,num)
+        except Exception as inst:
+            print(type(inst))    # the exception instance
+            print(inst.args)     # arguments stored in .args
+            print(inst)          # __str__ allows args to be printed directly,
+            return False
+    
+         
+    def hset(self,hash,field,value):
+        return self.r.hset(hash,field,value)
+    
+    def hget(self,hash,field):
+        return self.r.hget(hash,field)
+    
+        
+    def hgetall(self,hash):
+        return self.r.hgetall(hash)
+    
+    def hexists(self,hash,field):
+        return self.r.hexists(hash,field)
+    
+    def hdel(self,hash,field):
+        return self.r.hdel(hash,field)
+    
+    def hvals(self,hash):
+        return self.r.hvals(hash)
+    
+    def hmget(self,hash,key):
+        return self.r.hmget(hash,key)
+    
+    def rpoplpush(self,list1,list2):
+        return self.r.rpoplpush(list1,list2)
+
+        #RPOPLPUSH
+
 
 
 
