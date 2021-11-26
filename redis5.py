@@ -1,6 +1,7 @@
 import redis
 
 class Redis:
+
     def __init__(self,db=0,host="127.0.0.1",port=6379,password=''):
         self.host = host
         self.port = port
@@ -12,15 +13,18 @@ class Redis:
         db = self.db,
         password = self.password)
         self.data = {self.db: {}}
+
     def get(self, key):
         """Gets the value associated with a key"""
         data = self.r.get(key)
         obj = {"key":key, "value":data,"db":self.db}
         return obj
+
     def set(self, key, value):
         """Sets a key-to-value association"""
         self.r.set(key,value)
         return True
+
     def delete(self, key):
         """Deletes a key"""
         self.r.delete(key)
@@ -52,8 +56,8 @@ class Redis:
     def add_key(self, keyname,values):
         return self.r.sadd(keyname, values)
     
-    def rpush(self):
-        return self.r.rpush("R","B")
+    def rpush(self,key,value):
+        return self.r.rpush(key,value)
     
     def rpush(self,key,value):
         return self.r.rpush(key,value)
@@ -62,12 +66,15 @@ class Redis:
     def lpush(self,key,value):
         return self.r.lpush(key,value)
     
+
     def rpush(self,key,value):
         return self.r.rpush(key,value)
     
+
     def lpop(self,key):
         return self.r.lpop(key)
     
+
     def rpop(self,key):
         return self.r.rpop(key)
     
@@ -75,6 +82,11 @@ class Redis:
     def llen(self,key):
         return self.r.llen(key)
     
+    def sadd(self,key,value):
+        return self.r.llen(key,value)
+    
+
+
     def lindex(self,key,id):
         return self.r.lindex(key, id)
     
@@ -82,12 +94,54 @@ class Redis:
     def lrange(self,key,index0=0,index1=-1):
         return self.r.lrange(key,index0,index1)
     
+
     def expire(self,key,ttl):
         return self.r.expire(key,ttl)
     
+
     def ttl(self,key):
         return self.r.ttl(key)
     
+        
+    def type(self,key):
+        return self.r.type(key)
+    
+    def sort(self,list,start=0,num=-1):
+        try:
+            return self.r.sort(list,start,num)
+        except Exception as inst:
+            print(type(inst))    # the exception instance
+            print(inst.args)     # arguments stored in .args
+            print(inst)          # __str__ allows args to be printed directly,
+            return False
+    
+         
+    def hset(self,hash,field,value):
+        return self.r.hset(hash,field,value)
+    
+    def hget(self,hash,field):
+        return self.r.hget(hash,field)
+    
+        
+    def hgetall(self,hash):
+        return self.r.hgetall(hash)
+    
+    def hexists(self,hash,field):
+        return self.r.hexists(hash,field)
+    
+    def hdel(self,hash,field):
+        return self.r.hdel(hash,field)
+    
+    def hvals(self,hash):
+        return self.r.hvals(hash)
+    
+    def hmget(self,hash,key):
+        return self.r.hmget(hash,key)
+    
+    def rpoplpush(self,list1,list2):
+        return self.r.rpoplpush(list1,list2)
+
+        #RPOPLPUSH
 
 
 
@@ -97,23 +151,4 @@ class Redis:
 
 
 
-# r = redis.Redis(
-#     host='85.208.253.188',
-#     port=6379,
-#     password='')
 
-
-# r.set('foo', 'bar')
-# value = r.get('foo')
-# print(value)
-
-
-# r = redis.Redis(host='localhost', port=6379, db=1)
-
-# r.set('hello', 'world') # True
-
-# value = r.get('hello')
-# print(value) # b'world'
-
-# r.delete('hello') # True
-# print(r.get('hello')) # None
